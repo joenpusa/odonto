@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import LoginPage from '@/pages/LoginPage';
+import { AuthProvider, useAuth } from '@/context/AuthContext';
 
 const ProtectedRoute = () => {
   const { isAuthenticated, loading } = useAuth();

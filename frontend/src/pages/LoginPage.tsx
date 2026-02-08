@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
-import api from '../api/axios';
-import { useAuth } from '../context/AuthContext';
-import '../index.css';
+import api from '@/api/axios';
+import { useAuth } from '@/context/AuthContext';
+import '@/index.css';
 
 const loginSchema = z.object({
     tax_id: z.string().min(1, 'Company ID is required'),
