@@ -10,19 +10,25 @@ import { useToast } from '@/context/ToastContext';
 import LanguageSelector from '@/components/LanguageSelector';
 import '@/index.css';
 
-const loginSchema = z.object({
-    tax_id: z.string().min(1, 'Company ID is required'),
-    username: z.string().min(1, 'Username is required'),
-    password: z.string().min(1, 'Password is required'),
+const loginSchemaShape = z.object({
+    tax_id: z.string(),
+    username: z.string(),
+    password: z.string(),
 });
 
-type LoginFormData = z.infer<typeof loginSchema>;
+type LoginFormData = z.infer<typeof loginSchemaShape>;
 
 const LoginPage: React.FC = () => {
     const { login } = useAuth();
     const navigate = useNavigate();
     const { t } = useTranslation();
     const { addToast } = useToast();
+
+    const loginSchema = z.object({
+        tax_id: z.string().min(1, t('auth.company_id_required')),
+        username: z.string().min(1, t('auth.username_required')),
+        password: z.string().min(1, t('auth.password_required')),
+    });
 
     const {
         register,
@@ -40,7 +46,7 @@ const LoginPage: React.FC = () => {
             addToast(t('auth.login_successful') || 'Login successful', 'success');
             navigate('/');
         } catch (err: any) {
-            let errorMessage = 'An unexpected error occurred. Please try again.';
+            let errorMessage = t('common.unexpected_error');
             if (err.response && err.response.data && err.response.data.message) {
                 errorMessage = err.response.data.message;
             }

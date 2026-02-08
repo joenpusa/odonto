@@ -5,13 +5,18 @@
         "password": "Password",
         "company_id": "Company ID",
         "sign_in": "Sign In",
-        "welcome": "Welcome back, {{name}}"
+        "welcome": "Welcome back, {{name}}",
+        "login_successful": "Login successful",
+        "company_id_required": "Company ID is required",
+        "username_required": "Username is required",
+        "password_required": "Password is required"
     },
     "common": {
         "save": "Save",
         "cancel": "Cancel",
         "language": "Language",
-        "logout": "Logout"
+        "logout": "Logout",
+        "unexpected_error": "An unexpected error occurred. Please try again."
     },
     "dashboard": {
         "title": "Dashboard",
