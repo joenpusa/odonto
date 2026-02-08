@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'; // Import hook
 import LoginPage from '@/pages/LoginPage';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { ToastProvider } from '@/context/ToastContext';
-import LanguageSelector from '@/components/LanguageSelector';
 import NotFoundPage from '@/pages/error/NotFoundPage';
+import MainLayout from '@/templates/MainLayout';
 
 const ProtectedRoute = () => {
   const { isAuthenticated, loading } = useAuth();
@@ -25,18 +25,16 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
 
             <Route element={<ProtectedRoute />}>
-              <Route path="/" element={
-                <div style={{ padding: '2rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <LanguageSelector />
+              <Route element={<MainLayout />}>
+                <Route path="/" element={
+                  <div style={{ padding: '2rem' }}>
+                    {/* We can use t('welcome', { name: user.name }) if we had user name */}
+                    <h1>{t('dashboard.title')}</h1>
+                    <p>{t('dashboard.welcome')}</p>
                   </div>
-                  {/* We can use t('welcome', { name: user.name }) if we had user name */}
-                  <h1>{t('dashboard.title')}</h1>
-                  <p>{t('dashboard.welcome')}</p>
-                  {/* Logout button for testing */}
-                  <LogoutButton />
-                </div>
-              } />
+                } />
+                <Route path="/companies" element={<div>Companies Page Placeholder</div>} />
+              </Route>
             </Route>
 
             <Route path="*" element={<NotFoundPage />} />

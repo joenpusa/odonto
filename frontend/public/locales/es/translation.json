@@ -11,6 +11,11 @@
         "username_required": "El nombre de usuario es obligatorio",
         "password_required": "La contraseña es obligatoria"
     },
+    "menu": {
+        "dashboard": "Inicio",
+        "administration": "Administración",
+        "companies": "Empresas"
+    },
     "common": {
         "save": "Guardar",
         "cancel": "Cancelar",

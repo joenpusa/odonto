@@ -11,6 +11,11 @@
         "username_required": "Username is required",
         "password_required": "Password is required"
     },
+    "menu": {
+        "dashboard": "Dashboard",
+        "administration": "Administration",
+        "companies": "Companies"
+    },
     "common": {
         "save": "Save",
         "cancel": "Cancel",
