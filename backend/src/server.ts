@@ -19,6 +19,22 @@ app.use(cors({
 }));
 app.use(helmet());
 app.use(morgan('dev'));
+import i18next from 'i18next';
+import Backend from 'i18next-fs-backend';
+import middleware from 'i18next-http-middleware';
+import path from 'path';
+
+i18next
+    .use(Backend)
+    .use(middleware.LanguageDetector)
+    .init({
+        fallbackLng: 'en', // Default backend language
+        backend: {
+            loadPath: path.join(__dirname, '../locales/{{lng}}/{{ns}}.json')
+        }
+    });
+
+app.use(middleware.handle(i18next));
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);

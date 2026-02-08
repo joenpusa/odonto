@@ -1,0 +1,8 @@
+{
+    "login_successful": "Login successful",
+    "invalid_credentials": "Invalid credentials",
+    "validation_error": "Validation error",
+    "company_not_found": "Company not found",
+    "subscription_terminated": "Subscription terminated",
+    "internal_server_error": "Internal server error"
+}

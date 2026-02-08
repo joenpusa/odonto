@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'; // Import hook
 import LoginPage from '@/pages/LoginPage';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
+import LanguageSelector from '@/components/LanguageSelector';
 
 const ProtectedRoute = () => {
   const { isAuthenticated, loading } = useAuth();
@@ -11,6 +13,8 @@ const ProtectedRoute = () => {
 };
 
 function App() {
+  const { t } = useTranslation(); // Hook in main component
+
   return (
     <BrowserRouter>
       <AuthProvider>
@@ -20,8 +24,12 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={
               <div style={{ padding: '2rem' }}>
-                <h1>Dashboard</h1>
-                <p>Welcome to Dental App!</p>
+                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <LanguageSelector />
+                </div>
+                {/* We can use t('welcome', { name: user.name }) if we had user name */}
+                <h1>{t('dashboard.title')}</h1>
+                <p>{t('dashboard.welcome')}</p>
                 {/* Logout button for testing */}
                 <LogoutButton />
               </div>
@@ -35,6 +43,8 @@ function App() {
 
 const LogoutButton = () => {
   const { logout } = useAuth();
+  const { t } = useTranslation(); // Hook in sub-component
+
   return (
     <button
       onClick={logout}
@@ -48,9 +58,10 @@ const LogoutButton = () => {
         cursor: 'pointer'
       }}
     >
-      Logout
+      {t('common.logout')}
     </button>
   )
 }
+
 
 export default App;

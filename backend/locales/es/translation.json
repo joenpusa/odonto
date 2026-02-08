@@ -1,0 +1,8 @@
+{
+    "login_successful": "Inicio de sesión exitoso",
+    "invalid_credentials": "Credenciales inválidas",
+    "validation_error": "Error de validación",
+    "company_not_found": "Empresa no encontrada",
+    "subscription_terminated": "Suscripción terminada",
+    "internal_server_error": "Error interno del servidor"
+}

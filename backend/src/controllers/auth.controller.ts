@@ -15,17 +15,21 @@ export const login = async (req: Request, res: Response) => {
         const result = await authenticateUser(tax_id, username, password);
 
         res.json({
-            message: "Login successful",
+            message: req.t('login_successful'),
             ...result,
         });
     } catch (error: any) {
         if (error instanceof ZodError) {
-            res.status(400).json({ message: "Validation error", errors: error.errors });
-        } else if (error.message === 'Company not found' || error.message === 'Subscription terminated' || error.message === 'Invalid credentials') {
-            res.status(401).json({ message: error.message });
+            res.status(400).json({ message: req.t('validation_error'), errors: error.errors });
+        } else if (error.message === 'Company not found') {
+            res.status(401).json({ message: req.t('company_not_found') });
+        } else if (error.message === 'Subscription terminated') {
+            res.status(401).json({ message: req.t('subscription_terminated') });
+        } else if (error.message === 'Invalid credentials') {
+            res.status(401).json({ message: req.t('invalid_credentials') });
         } else {
             console.error(error);
-            res.status(500).json({ message: "Internal server error" });
+            res.status(500).json({ message: req.t('internal_server_error') });
         }
     }
 };

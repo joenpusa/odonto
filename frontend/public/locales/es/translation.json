@@ -1,0 +1,20 @@
+{
+    "auth": {
+        "login": "Iniciar Sesión",
+        "username": "Nombre de usuario",
+        "password": "Contraseña",
+        "company_id": "ID de Empresa",
+        "sign_in": "Ingresar",
+        "welcome": "Bienvenido de nuevo, {{name}}"
+    },
+    "common": {
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "language": "Idioma",
+        "logout": "Cerrar Sesión"
+    },
+    "dashboard": {
+        "title": "Panel de Control",
+        "welcome": "¡Bienvenido a Dental App!"
+    }
+}
