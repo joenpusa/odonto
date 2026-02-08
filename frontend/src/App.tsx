@@ -4,6 +4,7 @@ import LoginPage from '@/pages/LoginPage';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { ToastProvider } from '@/context/ToastContext';
 import LanguageSelector from '@/components/LanguageSelector';
+import NotFoundPage from '@/pages/error/NotFoundPage';
 
 const ProtectedRoute = () => {
   const { isAuthenticated, loading } = useAuth();
@@ -37,6 +38,8 @@ function App() {
                 </div>
               } />
             </Route>
+
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </AuthProvider>
       </ToastProvider>

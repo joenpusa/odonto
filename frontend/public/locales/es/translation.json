@@ -21,5 +21,10 @@
     "dashboard": {
         "title": "Panel de Control",
         "welcome": "¡Bienvenido a Dental App!"
+    },
+    "errors": {
+        "404_title": "Página no encontrada",
+        "404_message": "Lo sentimos, la página que buscas no existe o ha sido movida.",
+        "back_home": "Volver al inicio"
     }
 }

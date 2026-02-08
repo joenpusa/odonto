@@ -1,22 +1,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import api from '@/api/axios';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import LanguageSelector from '@/components/LanguageSelector';
+import { createLoginSchema } from '@/validators/auth.validator';
+import type { LoginFormData } from '@/validators/auth.validator';
 import '@/index.css';
-
-const loginSchemaShape = z.object({
-    tax_id: z.string(),
-    username: z.string(),
-    password: z.string(),
-});
-
-type LoginFormData = z.infer<typeof loginSchemaShape>;
 
 const LoginPage: React.FC = () => {
     const { login } = useAuth();
@@ -24,11 +17,7 @@ const LoginPage: React.FC = () => {
     const { t } = useTranslation();
     const { addToast } = useToast();
 
-    const loginSchema = z.object({
-        tax_id: z.string().min(1, t('auth.company_id_required')),
-        username: z.string().min(1, t('auth.username_required')),
-        password: z.string().min(1, t('auth.password_required')),
-    });
+    const loginSchema = createLoginSchema(t);
 
     const {
         register,
