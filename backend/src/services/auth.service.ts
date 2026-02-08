@@ -1,6 +1,6 @@
 import pool from '../config/database';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import { RowDataPacket } from 'mysql2';
 
 interface Tenant extends RowDataPacket {
@@ -80,13 +80,13 @@ export const authenticateUser = async (tax_id: string, username: string, passwor
     const accessToken = jwt.sign(
         { userId: user.id.toString('hex'), tenantId: tenant.id.toString('hex') },
         process.env.JWT_SECRET as string,
-        { expiresIn: '1h' }
+        { expiresIn: (process.env.JWT_EXPIRES_IN || '15m') } as SignOptions
     );
 
     const refreshToken = jwt.sign(
         { userId: user.id.toString('hex') },
         process.env.JWT_REFRESH_SECRET as string,
-        { expiresIn: '7d' }
+        { expiresIn: (process.env.JWT_REFRESH_EXPIRES_IN || '1d') } as SignOptions
     );
 
     // TODO: Store refresh token in DB if strict management is needed (not in current schema)
@@ -101,4 +101,33 @@ export const authenticateUser = async (tax_id: string, username: string, passwor
             tenant_id: tenant.id.toString('hex'),
         }
     };
+};
+
+export const refreshAccessToken = async (refreshToken: string) => {
+    try {
+        const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET as string) as any;
+
+        // Optionally verify user exists in DB:
+        const [users] = await pool.query<User[]>(
+            'SELECT id, tenant_id FROM users WHERE id = UNHEX(?)',
+            [decoded.userId]
+        );
+
+        if (users.length === 0) {
+            throw new Error('User not found');
+        }
+
+        const user = users[0];
+
+        // Generate new Access Token Only
+        const newAccessToken = jwt.sign(
+            { userId: user.id.toString('hex'), tenantId: user.tenant_id.toString('hex') },
+            process.env.JWT_SECRET as string,
+            { expiresIn: (process.env.JWT_EXPIRES_IN || '15m') } as SignOptions
+        );
+
+        return { accessToken: newAccessToken };
+    } catch (error) {
+        throw new Error('Invalid refresh token');
+    }
 };

@@ -33,3 +33,20 @@ export const login = async (req: Request, res: Response) => {
         }
     }
 };
+
+import { refreshAccessToken } from '../services/auth.service';
+
+export const refresh = async (req: Request, res: Response) => {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+        return res.status(401).json({ message: 'Refresh Token Required' });
+    }
+
+    try {
+        const result = await refreshAccessToken(refreshToken);
+        res.json(result);
+    } catch (error) {
+        return res.status(403).json({ message: 'Invalid Refresh Token' });
+    }
+};
