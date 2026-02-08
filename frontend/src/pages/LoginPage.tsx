@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import api from '@/api/axios';
 import { useAuth } from '@/context/AuthContext';
+import { useToast } from '@/context/ToastContext';
 import LanguageSelector from '@/components/LanguageSelector';
 import '@/index.css';
 
@@ -20,8 +21,9 @@ type LoginFormData = z.infer<typeof loginSchema>;
 const LoginPage: React.FC = () => {
     const { login } = useAuth();
     const navigate = useNavigate();
-    const { t } = useTranslation(); // Use default namespace 'translation'
-    const [error, setError] = useState<string | null>(null);
+    const { t } = useTranslation();
+    const { addToast } = useToast();
+
     const {
         register,
         handleSubmit,
@@ -31,18 +33,18 @@ const LoginPage: React.FC = () => {
     });
 
     const onSubmit = async (data: LoginFormData) => {
-        setError(null);
         try {
             const response = await api.post('/auth/login', data);
             const { accessToken, refreshToken, user } = response.data;
             login(accessToken, refreshToken, user);
+            addToast(t('auth.login_successful') || 'Login successful', 'success');
             navigate('/');
         } catch (err: any) {
+            let errorMessage = 'An unexpected error occurred. Please try again.';
             if (err.response && err.response.data && err.response.data.message) {
-                setError(err.response.data.message);
-            } else {
-                setError('An unexpected error occurred. Please try again.');
+                errorMessage = err.response.data.message;
             }
+            addToast(errorMessage, 'error');
         }
     };
 
@@ -52,10 +54,7 @@ const LoginPage: React.FC = () => {
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <LanguageSelector />
                 </div>
-                <h2>{t('auth.sign_in')}</h2> {/* "Sign In" / "Iniciar Sesión" */}
-                {/* <p className="subtitle">Sign in to your account</p>  Let's keep this simple or add to i18n later */}
-
-                {error && <div className="error-message">{error}</div>}
+                <h2>{t('auth.sign_in')}</h2>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group">

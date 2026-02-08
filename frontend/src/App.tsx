@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom
 import { useTranslation } from 'react-i18next'; // Import hook
 import LoginPage from '@/pages/LoginPage';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
+import { ToastProvider } from '@/context/ToastContext';
 import LanguageSelector from '@/components/LanguageSelector';
 
 const ProtectedRoute = () => {
@@ -17,26 +18,28 @@ function App() {
 
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
+      <ToastProvider>
+        <AuthProvider>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
 
-          <Route element={<ProtectedRoute />}>
-            <Route path="/" element={
-              <div style={{ padding: '2rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  <LanguageSelector />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/" element={
+                <div style={{ padding: '2rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <LanguageSelector />
+                  </div>
+                  {/* We can use t('welcome', { name: user.name }) if we had user name */}
+                  <h1>{t('dashboard.title')}</h1>
+                  <p>{t('dashboard.welcome')}</p>
+                  {/* Logout button for testing */}
+                  <LogoutButton />
                 </div>
-                {/* We can use t('welcome', { name: user.name }) if we had user name */}
-                <h1>{t('dashboard.title')}</h1>
-                <p>{t('dashboard.welcome')}</p>
-                {/* Logout button for testing */}
-                <LogoutButton />
-              </div>
-            } />
-          </Route>
-        </Routes>
-      </AuthProvider>
+              } />
+            </Route>
+          </Routes>
+        </AuthProvider>
+      </ToastProvider>
     </BrowserRouter>
   );
 }
