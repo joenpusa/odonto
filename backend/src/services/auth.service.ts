@@ -20,9 +20,10 @@ interface User extends RowDataPacket {
     tenant_id: Buffer;
     person_id: Buffer;
     password_hash: string;
+    username: string;
 }
 
-export const authenticateUser = async (tax_id: string, email: string, password: string) => {
+export const authenticateUser = async (tax_id: string, username: string, password: string) => {
     // 1. Find Tenant
     const [tenants] = await pool.query<Tenant[]>(
         'SELECT id, tax_id, deactivated_at FROM tenants WHERE tax_id = ?',
@@ -44,22 +45,10 @@ export const authenticateUser = async (tax_id: string, email: string, password: 
         }
     }
 
-    // 3. Find Person by Email and Tenant
-    const [people] = await pool.query<Person[]>(
-        'SELECT id, tenant_id FROM people WHERE email = ? AND tenant_id = ?',
-        [email, tenant.id]
-    );
-
-    if (people.length === 0) {
-        throw new Error('Invalid credentials'); // User (person) not found
-    }
-
-    const person = people[0];
-
-    // 4. Find User by Person and Tenant
+    // 3. Find User by Username and Tenant
     const [users] = await pool.query<User[]>(
-        'SELECT id, password_hash FROM users WHERE person_id = ? AND tenant_id = ?',
-        [person.id, tenant.id]
+        'SELECT id, person_id, password_hash FROM users WHERE username = ? AND tenant_id = ?',
+        [username, tenant.id]
     );
 
     if (users.length === 0) {
@@ -68,13 +57,26 @@ export const authenticateUser = async (tax_id: string, email: string, password: 
 
     const user = users[0];
 
-    // 5. Verify Password
+    // 4. Verify Password
     const isValid = await bcrypt.compare(password, user.password_hash);
     if (!isValid) {
         throw new Error('Invalid credentials');
     }
 
-    // 6. Generate Tokens
+    // 5. Update last_login
+    await pool.query(
+        'UPDATE users SET last_login = NOW() WHERE id = ?',
+        [user.id]
+    );
+
+    // 6. Get Person details for email (optional, but good to return)
+    const [people] = await pool.query<Person[]>(
+        'SELECT email FROM people WHERE id = ?',
+        [user.person_id]
+    );
+    const email = people.length > 0 ? people[0].email : '';
+
+    // 7. Generate Tokens
     const accessToken = jwt.sign(
         { userId: user.id.toString('hex'), tenantId: tenant.id.toString('hex') },
         process.env.JWT_SECRET as string,
@@ -94,6 +96,7 @@ export const authenticateUser = async (tax_id: string, email: string, password: 
         refreshToken,
         user: {
             id: user.id.toString('hex'),
+            username: username,
             email: email,
             tenant_id: tenant.id.toString('hex'),
         }

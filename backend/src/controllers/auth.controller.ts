@@ -4,7 +4,7 @@ import { authenticateUser } from '../services/auth.service';
 
 const loginSchema = z.object({
     tax_id: z.string().min(1, "Identifier of the company is required"),
-    username: z.string().email("Invalid email format"),
+    username: z.string().min(1, "Username is required"),
     password: z.string().min(1, "Password is required"),
 });
 

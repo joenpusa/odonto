@@ -9,7 +9,7 @@ import '../index.css';
 
 const loginSchema = z.object({
     tax_id: z.string().min(1, 'Company ID is required'),
-    username: z.string().email('Invalid email address'),
+    username: z.string().min(1, 'Username is required'), // Changed from email to string
     password: z.string().min(1, 'Password is required'),
 });
 
@@ -65,11 +65,11 @@ const LoginPage: React.FC = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="username">Email</label>
+                        <label htmlFor="username">Username</label>
                         <input
                             id="username"
-                            type="email"
-                            placeholder="name@company.com"
+                            type="text"
+                            placeholder="Username"
                             {...register('username')}
                             className={errors.username ? 'input-error' : ''}
                         />

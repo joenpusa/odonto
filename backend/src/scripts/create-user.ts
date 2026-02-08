@@ -5,6 +5,7 @@ import { RowDataPacket } from 'mysql2';
 async function createUser() {
     try {
         const email = 'joenpusa@gmail.com';
+        const username = 'joenpusa';
         const password = 'admin123';
 
         // 1. Find Person
@@ -30,14 +31,23 @@ async function createUser() {
         // but here we are using a library. 
         // Let's use a raw query with UUID_TO_BIN(UUID()) for the ID.
 
-        await pool.query(
-            `INSERT INTO users (id, tenant_id, person_id, password_hash) 
-       VALUES (UUID_TO_BIN(UUID()), ?, ?, ?)`,
-            [person.tenant_id, person.id, hashedPassword]
-        );
+        try {
+            await pool.query(
+                `INSERT INTO users (id, tenant_id, person_id, username, password_hash) 
+           VALUES (UUID_TO_BIN(UUID()), ?, ?, ?, ?)`,
+                [person.tenant_id, person.id, username, hashedPassword]
+            );
 
-        console.log(`User created successfully for ${email} with password: ${password}`);
-        process.exit(0);
+            console.log(`User created successfully for ${email} with username: ${username} and password: ${password}`);
+            process.exit(0);
+        } catch (error: any) {
+            if (error.code === 'ER_DUP_ENTRY') {
+                console.error('User already exists (duplicate entry)');
+            } else {
+                console.error('Error inserting user:', error);
+            }
+            process.exit(1);
+        }
     } catch (error) {
         console.error('Error creating user:', error);
         process.exit(1);
