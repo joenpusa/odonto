@@ -27,6 +27,17 @@
         "title": "Panel de Control",
         "welcome": "¡Bienvenido a Dental App!"
     },
+    "companies": {
+        "title": "Empresas",
+        "search_placeholder": "Buscar por Nombre o NIT",
+        "name": "Nombre",
+        "tax_id": "NIT",
+        "status": "Estado",
+        "active": "Activo",
+        "inactive": "Inactivo",
+        "actions": "Acciones",
+        "created_at": "Fecha de Creación"
+    },
     "errors": {
         "404_title": "Página no encontrada",
         "404_message": "Lo sentimos, la página que buscas no existe o ha sido movida.",

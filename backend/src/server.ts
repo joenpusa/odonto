@@ -37,7 +37,10 @@ i18next
 app.use(middleware.handle(i18next));
 app.use(express.json());
 
+import tenantRoutes from './routes/tenant.routes';
+
 app.use('/api/auth', authRoutes);
+app.use('/api/tenants', tenantRoutes);
 
 app.get('/', (req, res) => {
     res.send('Dental Backend API running');

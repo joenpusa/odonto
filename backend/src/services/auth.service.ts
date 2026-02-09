@@ -1,27 +1,11 @@
 import pool from '../config/database';
 import bcrypt from 'bcryptjs';
 import jwt, { SignOptions } from 'jsonwebtoken';
-import { RowDataPacket } from 'mysql2';
 
-interface Tenant extends RowDataPacket {
-    id: Buffer;
-    tax_id: string;
-    deactivated_at: Date | null;
-}
 
-interface Person extends RowDataPacket {
-    id: Buffer;
-    tenant_id: Buffer;
-    email: string;
-}
-
-interface User extends RowDataPacket {
-    id: Buffer;
-    tenant_id: Buffer;
-    person_id: Buffer;
-    password_hash: string;
-    username: string;
-}
+import { Tenant } from '../modelos/tenant.model';
+import { User } from '../modelos/user.model';
+import { Person } from '../modelos/person.model';
 
 export const authenticateUser = async (tax_id: string, username: string, password: string) => {
     // 1. Find Tenant

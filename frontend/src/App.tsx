@@ -5,6 +5,7 @@ import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { ToastProvider } from '@/context/ToastContext';
 import NotFoundPage from '@/pages/error/NotFoundPage';
 import MainLayout from '@/templates/MainLayout';
+import CompaniesPage from '@/pages/administration/companies/CompaniesPage';
 
 const ProtectedRoute = () => {
   const { isAuthenticated, loading } = useAuth();
@@ -33,7 +34,7 @@ function App() {
                     <p>{t('dashboard.welcome')}</p>
                   </div>
                 } />
-                <Route path="/companies" element={<div>Companies Page Placeholder</div>} />
+                <Route path="/companies" element={<CompaniesPage />} />
               </Route>
             </Route>
 
@@ -44,28 +45,5 @@ function App() {
     </BrowserRouter>
   );
 }
-
-const LogoutButton = () => {
-  const { logout } = useAuth();
-  const { t } = useTranslation(); // Hook in sub-component
-
-  return (
-    <button
-      onClick={logout}
-      style={{
-        marginTop: '1rem',
-        padding: '0.5rem 1rem',
-        backgroundColor: '#ef4444',
-        color: 'white',
-        border: 'none',
-        borderRadius: '0.25rem',
-        cursor: 'pointer'
-      }}
-    >
-      {t('common.logout')}
-    </button>
-  )
-}
-
 
 export default App;
