@@ -37,12 +37,12 @@ i18next
 app.use(middleware.handle(i18next));
 app.use(express.json());
 
-import tenantRoutes from './routes/tenant.routes';
+import tenantRoutes from './routes/administration/tenant.routes';
 
 app.use('/api/auth', authRoutes);
 app.use('/api/tenants', tenantRoutes);
 
-import permissionRoutes from './routes/permission.routes';
+import permissionRoutes from './routes/administration/permission.routes';
 app.use('/api/permissions', permissionRoutes);
 
 app.get('/', (req, res) => {

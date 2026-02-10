@@ -1,6 +1,6 @@
 
-import pool from '../config/database';
-import { Permission } from '../modelos/permission.model';
+import pool from '../../config/database';
+import { Permission } from '../../modelos/administration/permission.model';
 import { ResultSetHeader } from 'mysql2';
 
 export const getPermissions = async (search: string = '', page: number = 1, limit: number = 10) => {

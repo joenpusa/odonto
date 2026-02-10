@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt, { SignOptions } from 'jsonwebtoken';
 
 
-import { Tenant } from '../modelos/tenant.model';
+import { Tenant } from '../modelos/administration/tenant.model';
 import { User } from '../modelos/user.model';
 import { Person } from '../modelos/person.model';
 

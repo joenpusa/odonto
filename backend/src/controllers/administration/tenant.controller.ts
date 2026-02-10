@@ -1,6 +1,6 @@
 
 import { Request, Response } from 'express';
-import { getTenants } from '../services/tenant.service';
+import { getTenants } from '../../services/administration/tenant.service';
 
 export const getAll = async (req: Request, res: Response) => {
     try {
