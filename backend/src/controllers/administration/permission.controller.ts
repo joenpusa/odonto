@@ -1,6 +1,6 @@
 
 import { Request, Response } from 'express';
-import { getPermissions } from '../../services/administration/permission.service';
+import { getPermissions } from '@/services/administration/permission.service';
 
 export const getPermissionsList = async (req: Request, res: Response) => {
     try {

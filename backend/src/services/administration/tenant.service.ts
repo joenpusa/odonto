@@ -1,8 +1,8 @@
 
-import pool from '../../config/database';
+import pool from '@/config/database';
 
 
-import { Tenant } from '../../modelos/administration/tenant.model';
+import { Tenant } from '@/modelos/administration/tenant.model';
 
 export const getTenants = async (search: string = '', page: number = 1, limit: number = 10) => {
     const offset = (page - 1) * limit;

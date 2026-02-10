@@ -1,6 +1,6 @@
 
 import { Router } from 'express';
-import { getAll } from '../../controllers/administration/tenant.controller';
+import { getAll } from '@/controllers/administration/tenant.controller';
 
 const router = Router();
 

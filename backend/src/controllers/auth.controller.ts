@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { z, ZodError } from 'zod';
-import { authenticateUser } from '../services/auth.service';
+import { authenticateUser } from '@/services/auth.service';
 
 const loginSchema = z.object({
     tax_id: z.string().min(1, "Identifier of the company is required"),
@@ -34,7 +34,7 @@ export const login = async (req: Request, res: Response) => {
     }
 };
 
-import { refreshAccessToken } from '../services/auth.service';
+import { refreshAccessToken } from '@/services/auth.service';
 
 export const refresh = async (req: Request, res: Response) => {
     const { refreshToken } = req.body;

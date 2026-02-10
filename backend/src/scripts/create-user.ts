@@ -1,4 +1,4 @@
-import pool from '../config/database';
+import pool from '@/config/database';
 import bcrypt from 'bcryptjs';
 import { RowDataPacket } from 'mysql2';
 

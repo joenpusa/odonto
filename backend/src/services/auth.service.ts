@@ -1,11 +1,11 @@
-import pool from '../config/database';
+import pool from '@/config/database';
 import bcrypt from 'bcryptjs';
 import jwt, { SignOptions } from 'jsonwebtoken';
 
 
-import { Tenant } from '../modelos/administration/tenant.model';
-import { User } from '../modelos/user.model';
-import { Person } from '../modelos/person.model';
+import { Tenant } from '@/modelos/administration/tenant.model';
+import { User } from '@/modelos/user.model';
+import { Person } from '@/modelos/person.model';
 
 export const authenticateUser = async (tax_id: string, username: string, password: string) => {
     // 1. Find Tenant
