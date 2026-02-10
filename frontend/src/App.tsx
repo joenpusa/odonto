@@ -6,6 +6,7 @@ import { ToastProvider } from '@/context/ToastContext';
 import NotFoundPage from '@/pages/error/NotFoundPage';
 import MainLayout from '@/templates/MainLayout';
 import CompaniesPage from '@/pages/administration/companies/CompaniesPage';
+import PermissionsPage from '@/pages/administration/permissions/PermissionsPage';
 
 const ProtectedRoute = () => {
   const { isAuthenticated, loading } = useAuth();
@@ -35,6 +36,7 @@ function App() {
                   </div>
                 } />
                 <Route path="/companies" element={<CompaniesPage />} />
+                <Route path="/permissions" element={<PermissionsPage />} />
               </Route>
             </Route>
 

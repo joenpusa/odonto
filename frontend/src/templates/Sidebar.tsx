@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { LayoutDashboard, Settings, Building2, ChevronDown, ChevronRight } from 'lucide-react';
+import { LayoutDashboard, Settings, Building2, ChevronDown, ChevronRight, Lock } from 'lucide-react';
 
 interface SidebarProps {
     isOpen: boolean;
@@ -79,6 +79,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
                             <NavLink to="/companies" style={linkStyle}>
                                 <Building2 size={18} style={{ marginRight: '12px' }} />
                                 {t('menu.companies')}
+                            </NavLink>
+                            <NavLink to="/permissions" style={linkStyle}>
+                                <Lock size={18} style={{ marginRight: '12px' }} />
+                                {t('permissions.title')}
                             </NavLink>
                         </div>
                     )}

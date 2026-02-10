@@ -21,7 +21,12 @@
         "cancel": "Cancel",
         "language": "Language",
         "logout": "Logout",
-        "unexpected_error": "An unexpected error occurred. Please try again."
+        "unexpected_error": "An unexpected error occurred. Please try again.",
+        "loading": "Loading...",
+        "no_results": "No results found.",
+        "yes": "Yes",
+        "no": "No",
+        "page_of": "Page {{page}} of {{total}}"
     },
     "dashboard": {
         "title": "Dashboard",
@@ -37,6 +42,15 @@
         "inactive": "Inactive",
         "actions": "Actions",
         "created_at": "Created At"
+    },
+    "permissions": {
+        "title": "Permissions",
+        "search_placeholder": "Search permissions...",
+        "module": "Module",
+        "name": "Name",
+        "description": "Description",
+        "is_private": "Private",
+        "actions": "Actions"
     },
     "errors": {
         "404_title": "Page not found",

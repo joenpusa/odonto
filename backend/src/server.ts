@@ -42,6 +42,9 @@ import tenantRoutes from './routes/tenant.routes';
 app.use('/api/auth', authRoutes);
 app.use('/api/tenants', tenantRoutes);
 
+import permissionRoutes from './routes/permission.routes';
+app.use('/api/permissions', permissionRoutes);
+
 app.get('/', (req, res) => {
     res.send('Dental Backend API running');
 });

@@ -21,7 +21,12 @@
         "cancel": "Cancelar",
         "language": "Idioma",
         "logout": "Cerrar Sesión",
-        "unexpected_error": "Ocurrió un error inesperado. Por favor inténtelo de nuevo."
+        "unexpected_error": "Ocurrió un error inesperado. Por favor inténtelo de nuevo.",
+        "loading": "Cargando...",
+        "no_results": "No se encontraron resultados.",
+        "yes": "Sí",
+        "no": "No",
+        "page_of": "Página {{page}} de {{total}}"
     },
     "dashboard": {
         "title": "Panel de Control",
@@ -37,6 +42,15 @@
         "inactive": "Inactivo",
         "actions": "Acciones",
         "created_at": "Fecha de Creación"
+    },
+    "permissions": {
+        "title": "Permisos",
+        "search_placeholder": "Buscar permisos...",
+        "module": "Módulo",
+        "name": "Nombre",
+        "description": "Descripción",
+        "is_private": "Privado",
+        "actions": "Acciones"
     },
     "errors": {
         "404_title": "Página no encontrada",
