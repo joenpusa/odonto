@@ -1,7 +1,7 @@
 
 import pool from '@/config/database';
 import { Permission } from '@/modelos/administration/permission.model';
-import { ResultSetHeader } from 'mysql2';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
 
 export const getPermissions = async (search: string = '', page: number = 1, limit: number = 10) => {
     const offset = (page - 1) * limit;
@@ -48,4 +48,30 @@ export const getPermissions = async (search: string = '', page: number = 1, limi
             totalPages: Math.ceil(total / limit)
         }
     };
+};
+
+export const getModules = async () => {
+    const [rows] = await pool.query<RowDataPacket[]>('SELECT HEX(id) as id, description FROM modules ORDER BY description');
+    return rows;
+};
+
+export const createPermission = async (data: { name: string; description: string; is_private: boolean; module_id: string }) => {
+    await pool.query(
+        `INSERT INTO permissions (id, name, description, is_private, module_id)
+         VALUES (UUID_TO_BIN(UUID()), ?, ?, ?, UUID_TO_BIN(?))`,
+        [data.name, data.description, data.is_private, data.module_id]
+    );
+};
+
+export const updatePermission = async (id: string, data: { name: string; description: string; is_private: boolean; module_id: string }) => {
+    await pool.query(
+        `UPDATE permissions 
+         SET name = ?, description = ?, is_private = ?, module_id = UUID_TO_BIN(?)
+         WHERE id = UUID_TO_BIN(?)`,
+        [data.name, data.description, data.is_private, data.module_id, id]
+    );
+};
+
+export const deletePermission = async (id: string) => {
+    await pool.query('DELETE FROM permissions WHERE id = UUID_TO_BIN(?)', [id]);
 };

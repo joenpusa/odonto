@@ -26,7 +26,8 @@
         "no_results": "No se encontraron resultados.",
         "yes": "Sí",
         "no": "No",
-        "page_of": "Página {{page}} de {{total}}"
+        "page_of": "Página {{page}} de {{total}}",
+        "required": "Requerido"
     },
     "dashboard": {
         "title": "Panel de Control",
@@ -49,8 +50,11 @@
         "module": "Módulo",
         "name": "Nombre",
         "description": "Descripción",
-        "is_private": "Privado",
-        "actions": "Acciones"
+        "is_private": "¿Es Privado?",
+        "actions": "Acciones",
+        "create_title": "Crear Permiso",
+        "edit_title": "Editar Permiso",
+        "add_new": "Agregar Nuevo"
     },
     "errors": {
         "404_title": "Página no encontrada",

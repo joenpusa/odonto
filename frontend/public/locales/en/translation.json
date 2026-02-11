@@ -26,7 +26,8 @@
         "no_results": "No results found.",
         "yes": "Yes",
         "no": "No",
-        "page_of": "Page {{page}} of {{total}}"
+        "page_of": "Page {{page}} of {{total}}",
+        "required": "Required"
     },
     "dashboard": {
         "title": "Dashboard",
@@ -49,8 +50,11 @@
         "module": "Module",
         "name": "Name",
         "description": "Description",
-        "is_private": "Private",
-        "actions": "Actions"
+        "is_private": "Is Private?",
+        "actions": "Actions",
+        "create_title": "Create Permission",
+        "edit_title": "Edit Permission",
+        "add_new": "Add New"
     },
     "errors": {
         "404_title": "Page not found",
