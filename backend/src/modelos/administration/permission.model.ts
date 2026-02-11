@@ -6,5 +6,6 @@ export interface Permission extends RowDataPacket {
     name: string;
     description: string;
     is_private: boolean;
-    module: string;
+    module_id: string;
+    module_name?: string;
 }
