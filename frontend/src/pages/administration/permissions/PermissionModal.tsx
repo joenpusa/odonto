@@ -82,57 +82,25 @@ const PermissionModal: React.FC<PermissionModalProps> = ({ isOpen, onClose, onSa
     };
 
     return (
-        <div style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            zIndex: 1000
-        }}>
-            <div style={{
-                backgroundColor: 'white',
-                borderRadius: '8px',
-                width: '500px',
-                maxWidth: '90%',
-                maxHeight: '90vh',
-                overflowY: 'auto',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-            }}>
-                <div style={{
-                    padding: '16px 24px',
-                    borderBottom: '1px solid #e5e7eb',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
-                }}>
-                    <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 600 }}>
+        <div className="modal-overlay">
+            <div className="modal-content" style={{ width: '500px' }}>
+                <div className="modal-header">
+                    <h3 className="modal-title">
                         {permission ? t('permissions.edit_title', 'Edit Permission') : t('permissions.create_title', 'Create Permission')}
                     </h3>
-                    <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280' }}>
+                    <button onClick={onClose} className="modal-close-btn">
                         <X size={24} />
                     </button>
                 </div>
 
-                <form onSubmit={handleSubmit(onSubmit)} style={{ padding: '24px' }}>
-                    <div style={{ marginBottom: '16px' }}>
-                        <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500, color: '#374151' }}>
+                <form onSubmit={handleSubmit(onSubmit)} className="modal-body">
+                    <div className="form-group">
+                        <label className="form-label">
                             {t('permissions.module', 'Module')}
                         </label>
                         <select
                             {...register('module_id')}
-                            style={{
-                                width: '100%',
-                                padding: '8px 12px',
-                                borderRadius: '6px',
-                                border: `1px solid ${errors.module_id ? '#ef4444' : '#d1d5db'}`,
-                                fontSize: '1rem',
-                                boxSizing: 'border-box'
-                            }}
+                            className={`form-select ${errors.module_id ? 'input-error' : ''}`}
                         >
                             <option value="" disabled>{t('common.select', 'Select...')}</option>
                             {modules.map(module => (
@@ -142,100 +110,69 @@ const PermissionModal: React.FC<PermissionModalProps> = ({ isOpen, onClose, onSa
                             ))}
                         </select>
                         {errors.module_id && (
-                            <span style={{ color: '#ef4444', fontSize: '0.875rem', marginTop: '4px', display: 'block' }}>
+                            <span className="error-text">
                                 {errors.module_id.message}
                             </span>
                         )}
                     </div>
 
-                    <div style={{ marginBottom: '16px' }}>
-                        <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500, color: '#374151' }}>
+                    <div className="form-group">
+                        <label className="form-label">
                             {t('permissions.name', 'Name')}
                         </label>
                         <input
                             type="text"
                             {...register('name')}
-                            style={{
-                                width: '100%',
-                                padding: '8px 12px',
-                                borderRadius: '6px',
-                                border: `1px solid ${errors.name ? '#ef4444' : '#d1d5db'}`,
-                                fontSize: '1rem',
-                                boxSizing: 'border-box'
-                            }}
+                            className={`form-input ${errors.name ? 'input-error' : ''}`}
                         />
                         {errors.name && (
-                            <span style={{ color: '#ef4444', fontSize: '0.875rem', marginTop: '4px', display: 'block' }}>
+                            <span className="error-text">
                                 {errors.name.message}
                             </span>
                         )}
                     </div>
 
-                    <div style={{ marginBottom: '16px' }}>
-                        <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500, color: '#374151' }}>
+                    <div className="form-group">
+                        <label className="form-label">
                             {t('permissions.description', 'Description')}
                         </label>
                         <textarea
                             {...register('description')}
                             rows={3}
-                            style={{
-                                width: '100%',
-                                padding: '8px 12px',
-                                borderRadius: '6px',
-                                border: `1px solid ${errors.description ? '#ef4444' : '#d1d5db'}`,
-                                fontSize: '1rem',
-                                resize: 'vertical',
-                                boxSizing: 'border-box'
-                            }}
+                            className={`form-textarea ${errors.description ? 'input-error' : ''}`}
+                            style={{ resize: 'vertical' }}
                         />
                         {errors.description && (
-                            <span style={{ color: '#ef4444', fontSize: '0.875rem', marginTop: '4px', display: 'block' }}>
+                            <span className="error-text">
                                 {errors.description.message}
                             </span>
                         )}
                     </div>
 
-                    <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center' }}>
+                    <div className="form-group checkbox-wrapper">
                         <input
                             type="checkbox"
                             id="is_private"
                             {...register('is_private')}
-                            style={{ width: '16px', height: '16px', marginRight: '8px', cursor: 'pointer', marginTop: 0 }}
+                            className="checkbox-input"
                         />
-                        <label htmlFor="is_private" style={{ cursor: 'pointer', color: '#374151', lineHeight: '16px', userSelect: 'none' }}>
+                        <label htmlFor="is_private" className="checkbox-label">
                             {t('permissions.is_private', 'Is Private?')}
                         </label>
                     </div>
 
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
+                    <div className="modal-footer">
                         <button
                             type="button"
                             onClick={onClose}
-                            style={{
-                                padding: '8px 16px',
-                                borderRadius: '6px',
-                                border: '1px solid #d1d5db',
-                                backgroundColor: 'white',
-                                color: '#374151',
-                                cursor: 'pointer',
-                                fontWeight: 500
-                            }}
+                            className="btn btn-secondary"
                         >
                             {t('common.cancel', 'Cancel')}
                         </button>
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            style={{
-                                padding: '8px 16px',
-                                borderRadius: '6px',
-                                border: 'none',
-                                backgroundColor: '#2563eb',
-                                color: 'white',
-                                cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                                fontWeight: 500,
-                                opacity: isSubmitting ? 0.7 : 1
-                            }}
+                            className="btn btn-primary"
                         >
                             {isSubmitting ? t('common.saving', 'Saving...') : t('common.save', 'Save')}
                         </button>

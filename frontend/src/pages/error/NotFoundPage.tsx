@@ -19,28 +19,20 @@ const NotFoundPage: React.FC = () => {
     };
 
     return (
-        <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            minHeight: '100vh',
-            textAlign: 'center',
-            padding: '2rem'
-        }}>
+        <div className="not-found-container">
             <img
                 src={notFoundImage}
                 alt="404 Not Found"
-                style={{ maxWidth: '100%', maxHeight: '400px', marginBottom: '2rem' }}
+                className="not-found-image"
             />
             <h2>{t('errors.404_title')}</h2>
-            <p style={{ marginBottom: '2rem', color: '#6b7280' }}>
+            <p className="not-found-message">
                 {t('errors.404_message')}
             </p>
             <button
                 onClick={handleGoBack}
-                className="btn-primary"
-                style={{ maxWidth: '200px' }}
+                className="btn btn-primary"
+                style={{ minWidth: '150px' }}
             >
                 {t('errors.back_home')}
             </button>

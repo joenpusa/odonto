@@ -114,111 +114,87 @@ const PersonasPage: React.FC = () => {
 
     return (
         <div>
-            <div style={{ marginBottom: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h2 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 600, color: '#111827' }}>
+            <div className="page-header">
+                <h2 className="page-title">
                     {t('people.title')}
                 </h2>
-                <div style={{ position: 'relative' }}>
-                    <Search
-                        size={20}
-                        style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af' }}
-                    />
-                    <input
-                        type="text"
-                        placeholder={t('people.search_placeholder')}
-                        value={search}
-                        onChange={handleSearchChange}
-                        style={{
-                            padding: '10px 10px 10px 40px',
-                            borderRadius: '8px',
-                            border: '1px solid #d1d5db',
-                            width: '300px',
-                            fontSize: '0.95rem',
-                            outline: 'none'
-                        }}
-                    />
+                <div style={{ display: 'flex', gap: '16px' }}>
+                    <div className="search-container">
+                        <Search
+                            size={20}
+                            className="search-icon"
+                        />
+                        <input
+                            type="text"
+                            placeholder={t('people.search_placeholder')}
+                            value={search}
+                            onChange={handleSearchChange}
+                            className="search-input"
+                        />
+                    </div>
+                    <button
+                        onClick={handleCreate}
+                        className="btn btn-primary"
+                    >
+                        <Plus size={20} />
+                        {t('people.add_new', 'Add New')}
+                    </button>
                 </div>
-                <button
-                    onClick={handleCreate}
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        backgroundColor: '#2563eb',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '8px',
-                        padding: '10px 16px',
-                        fontWeight: 500,
-                        cursor: 'pointer'
-                    }}
-                >
-                    <Plus size={20} />
-                    {t('people.add_new', 'Add New')}
-                </button>
             </div>
 
-            <div style={{ backgroundColor: '#fff', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-                    <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
+            <div className="card">
+                <table className="data-table">
+                    <thead>
                         <tr>
-                            <th style={{ padding: '16px', fontWeight: 600, color: '#374151', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                {t('people.name')}
-                            </th>
-                            <th style={{ padding: '16px', fontWeight: 600, color: '#374151', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                {t('people.dni')}
-                            </th>
-                            <th style={{ padding: '16px', fontWeight: 600, color: '#374151', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                {t('people.email')}
-                            </th>
-                            <th style={{ padding: '16px', fontWeight: 600, color: '#374151', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                {t('people.phone')}
-                            </th>
-                            <th style={{ padding: '16px', textAlign: 'right', fontWeight: 600, color: '#374151', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                {t('people.actions')}
-                            </th>
+                            <th>{t('people.name')}</th>
+                            <th>{t('people.dni')}</th>
+                            <th>{t('people.email')}</th>
+                            <th>{t('people.phone')}</th>
+                            <th style={{ textAlign: 'right' }}>{t('people.actions')}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {loading ? (
                             <tr>
-                                <td colSpan={6} style={{ padding: '32px', textAlign: 'center', color: '#6b7280' }}>
-                                    Loading...
+                                <td colSpan={5} style={{ padding: '32px', textAlign: 'center', color: '#6b7280' }}>
+                                    {t('common.loading')}
                                 </td>
                             </tr>
                         ) : people.length === 0 ? (
                             <tr>
-                                <td colSpan={6} style={{ padding: '32px', textAlign: 'center', color: '#6b7280' }}>
+                                <td colSpan={5} style={{ padding: '32px', textAlign: 'center', color: '#6b7280' }}>
                                     {t('people.no_results')}
                                 </td>
                             </tr>
                         ) : (
                             people.map((person) => (
-                                <tr key={person.id} style={{ borderBottom: '1px solid #f3f4f6' }} className="hover:bg-gray-50">
-                                    <td style={{ padding: '16px', color: '#111827', fontWeight: 500 }}>
+                                <tr key={person.id}>
+                                    <td style={{ fontWeight: 500 }}>
                                         {person.first_name} {person.last_name}
                                     </td>
-                                    <td style={{ padding: '16px', color: '#4b5563' }}>
+                                    <td style={{ color: '#4b5563' }}>
                                         {person.document_number || '-'}
                                     </td>
-                                    <td style={{ padding: '16px', color: '#4b5563' }}>
+                                    <td style={{ color: '#4b5563' }}>
                                         {person.email || '-'}
                                     </td>
-                                    <td style={{ padding: '16px', color: '#4b5563' }}>
+                                    <td style={{ color: '#4b5563' }}>
                                         {person.phone || '-'}
                                     </td>
-                                    <td style={{ padding: '16px', textAlign: 'right' }}>
+                                    <td style={{ textAlign: 'right' }}>
                                         <button
                                             onClick={() => handleEdit(person)}
-                                            style={{ marginRight: '8px', color: '#2563eb', fontWeight: 500, background: 'none', border: 'none', cursor: 'pointer' }}
+                                            className="btn-icon"
                                             title={t('common.edit', 'Edit')}
+                                            style={{ color: '#2563eb' }}
                                         >
                                             <Edit size={18} />
                                         </button>
                                         <button
                                             onClick={() => handleDelete(person.id)}
-                                            style={{ color: '#dc2626', fontWeight: 500, background: 'none', border: 'none', cursor: 'pointer' }}
+                                            className="btn-icon"
                                             title={t('common.delete', 'Delete')}
+                                            style={{ color: '#dc2626' }}
                                         >
                                             <Trash2 size={18} />
                                         </button>
@@ -230,26 +206,22 @@ const PersonasPage: React.FC = () => {
                 </table>
 
                 {pagination && pagination.totalPages > 1 && (
-                    <div style={{ padding: '16px', borderTop: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <span style={{ color: '#6b7280', fontSize: '0.9rem' }}>
-                            {t('common.page')} {pagination.page} {t('common.of')} {pagination.totalPages}
+                    <div className="pagination-container">
+                        <span className="pagination-text">
+                            {t('common.page_of', { page: pagination.page, total: pagination.totalPages })}
                         </span>
-                        <div style={{ display: 'flex', gap: '8px' }}>
+                        <div className="pagination-controls">
                             <button
                                 onClick={() => handlePageChange(page - 1)}
                                 disabled={page <= 1}
-                                style={{
-                                    display: 'flex', alignItems: 'center', padding: '6px 12px', borderRadius: '6px', border: '1px solid #d1d5db', backgroundColor: page <= 1 ? '#f3f4f6' : '#fff', cursor: page <= 1 ? 'not-allowed' : 'pointer', color: page <= 1 ? '#9ca3af' : '#374151'
-                                }}
+                                className="pagination-btn"
                             >
                                 <ChevronLeft size={16} />
                             </button>
                             <button
                                 onClick={() => handlePageChange(page + 1)}
                                 disabled={page >= pagination.totalPages}
-                                style={{
-                                    display: 'flex', alignItems: 'center', padding: '6px 12px', borderRadius: '6px', border: '1px solid #d1d5db', backgroundColor: page >= pagination.totalPages ? '#f3f4f6' : '#fff', cursor: page >= pagination.totalPages ? 'not-allowed' : 'pointer', color: page >= pagination.totalPages ? '#9ca3af' : '#374151'
-                                }}
+                                className="pagination-btn"
                             >
                                 <ChevronRight size={16} />
                             </button>

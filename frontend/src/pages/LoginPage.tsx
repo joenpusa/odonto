@@ -46,50 +46,50 @@ const LoginPage: React.FC = () => {
     return (
         <div className="login-container">
             <div className="login-card">
-                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
                     <LanguageSelector />
                 </div>
                 <h2>{t('auth.sign_in')}</h2>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group">
-                        <label htmlFor="tax_id">{t('auth.company_id')}</label>
+                        <label htmlFor="tax_id" className="form-label">{t('auth.company_id')}</label>
                         <input
                             id="tax_id"
                             type="text"
                             placeholder={t('auth.company_id')}
                             {...register('tax_id')}
-                            className={errors.tax_id ? 'input-error' : ''}
+                            className={`form-input ${errors.tax_id ? 'input-error' : ''}`}
                         />
                         {errors.tax_id && <span className="error-text">{errors.tax_id.message}</span>}
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="username">{t('auth.username')}</label>
+                        <label htmlFor="username" className="form-label">{t('auth.username')}</label>
                         <input
                             id="username"
                             type="text"
                             placeholder={t('auth.username')}
                             {...register('username')}
-                            className={errors.username ? 'input-error' : ''}
+                            className={`form-input ${errors.username ? 'input-error' : ''}`}
                         />
                         {errors.username && <span className="error-text">{errors.username.message}</span>}
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="password">{t('auth.password')}</label>
+                        <label htmlFor="password" className="form-label">{t('auth.password')}</label>
                         <input
                             id="password"
                             type="password"
                             placeholder="••••••••"
                             {...register('password')}
-                            className={errors.password ? 'input-error' : ''}
+                            className={`form-input ${errors.password ? 'input-error' : ''}`}
                         />
                         {errors.password && <span className="error-text">{errors.password.message}</span>}
                     </div>
 
-                    <button type="submit" disabled={isSubmitting} className="btn-primary">
-                        {isSubmitting ? '...' : t('auth.sign_in')}
+                    <button type="submit" disabled={isSubmitting} className="btn btn-primary w-full" style={{ marginTop: '1rem' }}>
+                        {isSubmitting ? t('common.loading') : t('auth.sign_in')}
                     </button>
                 </form>
             </div>

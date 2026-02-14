@@ -133,45 +133,27 @@ const PermissionsPage: React.FC = () => {
 
     return (
         <div>
-            <div style={{ marginBottom: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h2 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 600, color: '#111827' }}>
+            <div className="page-header">
+                <h2 className="page-title">
                     {t('permissions.title')}
                 </h2>
                 <div style={{ display: 'flex', gap: '16px' }}>
-                    <div style={{ position: 'relative' }}>
+                    <div className="search-container">
                         <Search
                             size={20}
-                            style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af' }}
+                            className="search-icon"
                         />
                         <input
                             type="text"
                             placeholder={t('permissions.search_placeholder')}
                             value={search}
                             onChange={handleSearchChange}
-                            style={{
-                                padding: '10px 10px 10px 40px',
-                                borderRadius: '8px',
-                                border: '1px solid #d1d5db',
-                                width: '300px',
-                                fontSize: '0.95rem',
-                                outline: 'none'
-                            }}
+                            className="search-input"
                         />
                     </div>
                     <button
                         onClick={handleCreate}
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            backgroundColor: '#2563eb',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '8px',
-                            padding: '10px 16px',
-                            fontWeight: 500,
-                            cursor: 'pointer'
-                        }}
+                        className="btn btn-primary"
                     >
                         <Plus size={20} />
                         {t('permissions.add_new', 'Add New')}
@@ -179,25 +161,15 @@ const PermissionsPage: React.FC = () => {
                 </div>
             </div>
 
-            <div style={{ backgroundColor: '#fff', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-                    <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
+            <div className="card">
+                <table className="data-table">
+                    <thead>
                         <tr>
-                            <th style={{ padding: '16px', fontWeight: 600, color: '#374151', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                {t('permissions.module')}
-                            </th>
-                            <th style={{ padding: '16px', fontWeight: 600, color: '#374151', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                {t('permissions.name')}
-                            </th>
-                            <th style={{ padding: '16px', fontWeight: 600, color: '#374151', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                {t('permissions.description')}
-                            </th>
-                            <th style={{ padding: '16px', fontWeight: 600, color: '#374151', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                {t('permissions.is_private')}
-                            </th>
-                            <th style={{ padding: '16px', fontWeight: 600, color: '#374151', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'right' }}>
-                                {t('common.actions', 'Actions')}
-                            </th>
+                            <th>{t('permissions.module')}</th>
+                            <th>{t('permissions.name')}</th>
+                            <th>{t('permissions.description')}</th>
+                            <th>{t('permissions.is_private')}</th>
+                            <th style={{ textAlign: 'right' }}>{t('common.actions', 'Actions')}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -215,19 +187,19 @@ const PermissionsPage: React.FC = () => {
                             </tr>
                         ) : (
                             permissions.map((permission) => (
-                                <tr key={permission.id} style={{ borderBottom: '1px solid #f3f4f6' }} className="hover:bg-gray-50">
-                                    <td style={{ padding: '16px', color: '#4b5563' }}>
-                                        <span style={{ backgroundColor: '#eef2ff', color: '#4338ca', padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 500 }}>
+                                <tr key={permission.id}>
+                                    <td>
+                                        <span className="badge badge-info" style={{ color: '#4338ca', backgroundColor: '#eef2ff' }}>
                                             {permission.module_name || 'System'}
                                         </span>
                                     </td>
-                                    <td style={{ padding: '16px', color: '#111827', fontWeight: 500 }}>
+                                    <td style={{ fontWeight: 500 }}>
                                         {permission.name}
                                     </td>
-                                    <td style={{ padding: '16px', color: '#6b7280' }}>
+                                    <td style={{ color: '#6b7280' }}>
                                         {permission.description}
                                     </td>
-                                    <td style={{ padding: '16px' }}>
+                                    <td>
                                         {permission.is_private ? (
                                             <span style={{ display: 'inline-flex', alignItems: 'center', color: '#dc2626' }}>
                                                 <Lock size={16} style={{ marginRight: '4px' }} />
@@ -240,18 +212,20 @@ const PermissionsPage: React.FC = () => {
                                             </span>
                                         )}
                                     </td>
-                                    <td style={{ padding: '16px', textAlign: 'right' }}>
+                                    <td style={{ textAlign: 'right' }}>
                                         <button
                                             onClick={() => handleEdit(permission)}
-                                            style={{ marginRight: '8px', color: '#2563eb', background: 'none', border: 'none', cursor: 'pointer' }}
+                                            className="btn-icon"
                                             title={t('common.edit', 'Edit')}
+                                            style={{ color: '#2563eb' }}
                                         >
                                             <Edit size={18} />
                                         </button>
                                         <button
                                             onClick={() => handleDelete(permission.id)}
-                                            style={{ color: '#dc2626', background: 'none', border: 'none', cursor: 'pointer' }}
+                                            className="btn-icon"
                                             title={t('common.delete', 'Delete')}
+                                            style={{ color: '#dc2626' }}
                                         >
                                             <Trash2 size={18} />
                                         </button>
@@ -263,26 +237,22 @@ const PermissionsPage: React.FC = () => {
                 </table>
 
                 {pagination && pagination.totalPages > 1 && (
-                    <div style={{ padding: '16px', borderTop: '1px solid #e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <span style={{ color: '#6b7280', fontSize: '0.9rem' }}>
+                    <div className="pagination-container">
+                        <span className="pagination-text">
                             {t('common.page_of', { page: pagination.page, total: pagination.totalPages })}
                         </span>
-                        <div style={{ display: 'flex', gap: '8px' }}>
+                        <div className="pagination-controls">
                             <button
                                 onClick={() => handlePageChange(page - 1)}
                                 disabled={page <= 1}
-                                style={{
-                                    display: 'flex', alignItems: 'center', padding: '6px 12px', borderRadius: '6px', border: '1px solid #d1d5db', backgroundColor: page <= 1 ? '#f3f4f6' : '#fff', cursor: page <= 1 ? 'not-allowed' : 'pointer', color: page <= 1 ? '#9ca3af' : '#374151'
-                                }}
+                                className="pagination-btn"
                             >
                                 <ChevronLeft size={16} />
                             </button>
                             <button
                                 onClick={() => handlePageChange(page + 1)}
                                 disabled={page >= pagination.totalPages}
-                                style={{
-                                    display: 'flex', alignItems: 'center', padding: '6px 12px', borderRadius: '6px', border: '1px solid #d1d5db', backgroundColor: page >= pagination.totalPages ? '#f3f4f6' : '#fff', cursor: page >= pagination.totalPages ? 'not-allowed' : 'pointer', color: page >= pagination.totalPages ? '#9ca3af' : '#374151'
-                                }}
+                                className="pagination-btn"
                             >
                                 <ChevronRight size={16} />
                             </button>

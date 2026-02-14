@@ -94,105 +94,59 @@ const FormPeople: React.FC<FormPeopleProps> = ({ isOpen, onClose, onSave, person
     };
 
     return (
-        <div style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            zIndex: 1000
-        }}>
-            <div style={{
-                backgroundColor: 'white',
-                borderRadius: '8px',
-                width: '600px',
-                maxWidth: '90%',
-                maxHeight: '90vh',
-                overflowY: 'auto',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-            }}>
-                <div style={{
-                    padding: '16px 24px',
-                    borderBottom: '1px solid #e5e7eb',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
-                }}>
-                    <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 600 }}>
+        <div className="modal-overlay">
+            <div className="modal-content" style={{ width: '600px' }}>
+                <div className="modal-header">
+                    <h3 className="modal-title">
                         {person ? t('people.edit_title', 'Edit Person') : t('people.create_title', 'Create Person')}
                     </h3>
-                    <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280' }}>
+                    <button onClick={onClose} className="modal-close-btn">
                         <X size={24} />
                     </button>
                 </div>
 
-                <form onSubmit={handleSubmit(onSubmit)} style={{ padding: '24px' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                        <div style={{ marginBottom: '16px' }}>
-                            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500, color: '#374151' }}>
+                <form onSubmit={handleSubmit(onSubmit)} style={{ padding: '1.5rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                        <div className="form-group">
+                            <label className="form-label">
                                 {t('people.first_name', 'First Name')}
                             </label>
                             <input
                                 type="text"
                                 {...register('first_name')}
-                                style={{
-                                    width: '100%',
-                                    padding: '8px 12px',
-                                    borderRadius: '6px',
-                                    border: `1px solid ${errors.first_name ? '#ef4444' : '#d1d5db'}`,
-                                    fontSize: '1rem',
-                                    boxSizing: 'border-box'
-                                }}
+                                className={`form-input ${errors.first_name ? 'input-error' : ''}`}
                             />
                             {errors.first_name && (
-                                <span style={{ color: '#ef4444', fontSize: '0.875rem', marginTop: '4px', display: 'block' }}>
+                                <span className="error-text">
                                     {errors.first_name.message}
                                 </span>
                             )}
                         </div>
-                        <div style={{ marginBottom: '16px' }}>
-                            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500, color: '#374151' }}>
+                        <div className="form-group">
+                            <label className="form-label">
                                 {t('people.last_name', 'Last Name')}
                             </label>
                             <input
                                 type="text"
                                 {...register('last_name')}
-                                style={{
-                                    width: '100%',
-                                    padding: '8px 12px',
-                                    borderRadius: '6px',
-                                    border: `1px solid ${errors.last_name ? '#ef4444' : '#d1d5db'}`,
-                                    fontSize: '1rem',
-                                    boxSizing: 'border-box'
-                                }}
+                                className={`form-input ${errors.last_name ? 'input-error' : ''}`}
                             />
                             {errors.last_name && (
-                                <span style={{ color: '#ef4444', fontSize: '0.875rem', marginTop: '4px', display: 'block' }}>
+                                <span className="error-text">
                                     {errors.last_name.message}
                                 </span>
                             )}
                         </div>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                        <div style={{ marginBottom: '16px' }}>
-                            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500, color: '#374151' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                        <div className="form-group">
+                            <label className="form-label">
                                 {t('people.document_type', 'Document Type')}
                             </label>
                             <select
                                 {...register('document_type')}
-                                style={{
-                                    width: '100%',
-                                    padding: '8px 12px',
-                                    borderRadius: '6px',
-                                    border: `1px solid ${errors.document_type ? '#ef4444' : '#d1d5db'}`,
-                                    fontSize: '1rem',
-                                    boxSizing: 'border-box'
-                                }}
+                                className={`form-select ${errors.document_type ? 'input-error' : ''}`}
                             >
                                 <option value="">{t('common.select')}</option>
                                 <option value="CC">{t('people.doc_types.CC')}</option>
@@ -200,115 +154,90 @@ const FormPeople: React.FC<FormPeopleProps> = ({ isOpen, onClose, onSave, person
                                 <option value="CE">{t('people.doc_types.CE')}</option>
                                 <option value="PASSPORT">{t('people.doc_types.PASSPORT')}</option>
                             </select>
+                            {errors.document_type && (
+                                <span className="error-text">
+                                    {errors.document_type.message}
+                                </span>
+                            )}
                         </div>
-                        <div style={{ marginBottom: '16px' }}>
-                            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500, color: '#374151' }}>
+                        <div className="form-group">
+                            <label className="form-label">
                                 {t('people.document_number', 'Document Number')}
                             </label>
                             <input
                                 type="text"
                                 {...register('document_number')}
-                                style={{
-                                    width: '100%',
-                                    padding: '8px 12px',
-                                    borderRadius: '6px',
-                                    border: `1px solid ${errors.document_number ? '#ef4444' : '#d1d5db'}`,
-                                    fontSize: '1rem',
-                                    boxSizing: 'border-box'
-                                }}
+                                className={`form-input ${errors.document_number ? 'input-error' : ''}`}
                             />
+                            {errors.document_number && (
+                                <span className="error-text">
+                                    {errors.document_number.message}
+                                </span>
+                            )}
                         </div>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                        <div style={{ marginBottom: '16px' }}>
-                            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500, color: '#374151' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                        <div className="form-group">
+                            <label className="form-label">
                                 {t('people.email', 'Email')}
                             </label>
                             <input
                                 type="email"
                                 {...register('email')}
-                                style={{
-                                    width: '100%',
-                                    padding: '8px 12px',
-                                    borderRadius: '6px',
-                                    border: `1px solid ${errors.email ? '#ef4444' : '#d1d5db'}`,
-                                    fontSize: '1rem',
-                                    boxSizing: 'border-box'
-                                }}
+                                className={`form-input ${errors.email ? 'input-error' : ''}`}
                             />
                             {errors.email && (
-                                <span style={{ color: '#ef4444', fontSize: '0.875rem', marginTop: '4px', display: 'block' }}>
+                                <span className="error-text">
                                     {errors.email.message}
                                 </span>
                             )}
                         </div>
-                        <div style={{ marginBottom: '16px' }}>
-                            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500, color: '#374151' }}>
+                        <div className="form-group">
+                            <label className="form-label">
                                 {t('people.phone', 'Phone')}
                             </label>
                             <input
                                 type="text"
                                 {...register('phone')}
-                                style={{
-                                    width: '100%',
-                                    padding: '8px 12px',
-                                    borderRadius: '6px',
-                                    border: `1px solid ${errors.phone ? '#ef4444' : '#d1d5db'}`,
-                                    fontSize: '1rem',
-                                    boxSizing: 'border-box'
-                                }}
+                                className={`form-input ${errors.phone ? 'input-error' : ''}`}
                             />
+                            {errors.phone && (
+                                <span className="error-text">
+                                    {errors.phone.message}
+                                </span>
+                            )}
                         </div>
                     </div>
 
-                    <div style={{ marginBottom: '16px' }}>
-                        <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500, color: '#374151' }}>
+                    <div className="form-group">
+                        <label className="form-label">
                             {t('people.address', 'Address')}
                         </label>
                         <input
                             type="text"
                             {...register('address')}
-                            style={{
-                                width: '100%',
-                                padding: '8px 12px',
-                                borderRadius: '6px',
-                                border: `1px solid ${errors.address ? '#ef4444' : '#d1d5db'}`,
-                                fontSize: '1rem',
-                                boxSizing: 'border-box'
-                            }}
+                            className={`form-input ${errors.address ? 'input-error' : ''}`}
                         />
+                        {errors.address && (
+                            <span className="error-text">
+                                {errors.address.message}
+                            </span>
+                        )}
                     </div>
 
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '24px' }}>
+                    <div className="modal-footer">
                         <button
                             type="button"
                             onClick={onClose}
-                            style={{
-                                padding: '8px 16px',
-                                borderRadius: '6px',
-                                border: '1px solid #d1d5db',
-                                backgroundColor: 'white',
-                                color: '#374151',
-                                cursor: 'pointer',
-                                fontWeight: 500
-                            }}
+                            className="btn btn-secondary"
                         >
                             {t('common.cancel', 'Cancel')}
                         </button>
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            style={{
-                                padding: '8px 16px',
-                                borderRadius: '6px',
-                                border: 'none',
-                                backgroundColor: '#2563eb',
-                                color: 'white',
-                                cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                                fontWeight: 500,
-                                opacity: isSubmitting ? 0.7 : 1
-                            }}
+                            className="btn btn-primary"
                         >
                             {isSubmitting ? t('common.saving', 'Saving...') : t('common.save', 'Save')}
                         </button>
