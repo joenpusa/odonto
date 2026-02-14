@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, ChevronLeft, ChevronRight, Plus, Edit, Trash2 } from 'lucide-react';
 import api from '@/api/axios';
 import { useToast } from '@/context/ToastContext';
+import FormPeople from './FormPeople';
 
 interface Person {
     id: string;
@@ -30,6 +31,9 @@ const PersonasPage: React.FC = () => {
     const [search, setSearch] = useState('');
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState<Pagination | null>(null);
+
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
 
     const fetchPeople = useCallback(async (searchTerm: string, pageNum: number) => {
         setLoading(true);
@@ -68,6 +72,46 @@ const PersonasPage: React.FC = () => {
         setPage(newPage);
     };
 
+    const handleCreate = () => {
+        setSelectedPerson(null);
+        setModalOpen(true);
+    };
+
+    const handleEdit = (person: Person) => {
+        setSelectedPerson(person);
+        setModalOpen(true);
+    };
+
+    const handleDelete = async (id: string) => {
+        if (!window.confirm(t('common.confirm_delete', 'Are you sure you want to delete this item?'))) return;
+
+        try {
+            await api.delete(`/people/${id}`);
+            addToast(t('common.deleted_successfully', 'Deleted successfully'), 'success');
+            fetchPeople(search, page);
+        } catch (error) {
+            console.error(error);
+            addToast(t('common.error_deleting', 'Error deleting item'), 'error');
+        }
+    };
+
+    const handleSave = async (data: any) => {
+        try {
+            if (selectedPerson) {
+                await api.put(`/people/${selectedPerson.id}`, data);
+                addToast(t('common.updated_successfully', 'Updated successfully'), 'success');
+            } else {
+                await api.post('/people', data);
+                addToast(t('common.created_successfully', 'Created successfully'), 'success');
+            }
+            fetchPeople(search, page);
+        } catch (error) {
+            console.error(error);
+            addToast(t('common.error_saving', 'Error saving item'), 'error');
+            throw error;
+        }
+    };
+
     return (
         <div>
             <div style={{ marginBottom: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -94,6 +138,24 @@ const PersonasPage: React.FC = () => {
                         }}
                     />
                 </div>
+                <button
+                    onClick={handleCreate}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        backgroundColor: '#2563eb',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '8px',
+                        padding: '10px 16px',
+                        fontWeight: 500,
+                        cursor: 'pointer'
+                    }}
+                >
+                    <Plus size={20} />
+                    {t('people.add_new', 'Add New')}
+                </button>
             </div>
 
             <div style={{ backgroundColor: '#fff', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
@@ -146,8 +208,19 @@ const PersonasPage: React.FC = () => {
                                         {person.phone || '-'}
                                     </td>
                                     <td style={{ padding: '16px', textAlign: 'right' }}>
-                                        <button style={{ color: '#2563eb', fontWeight: 500, background: 'none', border: 'none', cursor: 'pointer' }}>
-                                            Edit
+                                        <button
+                                            onClick={() => handleEdit(person)}
+                                            style={{ marginRight: '8px', color: '#2563eb', fontWeight: 500, background: 'none', border: 'none', cursor: 'pointer' }}
+                                            title={t('common.edit', 'Edit')}
+                                        >
+                                            <Edit size={18} />
+                                        </button>
+                                        <button
+                                            onClick={() => handleDelete(person.id)}
+                                            style={{ color: '#dc2626', fontWeight: 500, background: 'none', border: 'none', cursor: 'pointer' }}
+                                            title={t('common.delete', 'Delete')}
+                                        >
+                                            <Trash2 size={18} />
                                         </button>
                                     </td>
                                 </tr>
@@ -184,6 +257,13 @@ const PersonasPage: React.FC = () => {
                     </div>
                 )}
             </div>
+
+            <FormPeople
+                isOpen={modalOpen}
+                onClose={() => setModalOpen(false)}
+                onSave={handleSave}
+                person={selectedPerson}
+            />
         </div>
     );
 };

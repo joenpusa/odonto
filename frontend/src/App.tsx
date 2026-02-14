@@ -7,7 +7,7 @@ import NotFoundPage from '@/pages/error/NotFoundPage';
 import MainLayout from '@/templates/MainLayout';
 import CompaniesPage from '@/pages/administration/companies/CompaniesPage';
 import PermissionsPage from '@/pages/administration/permissions/PermissionsPage';
-import PersonasPage from '@/pages/administration/personas/PersonasPage';
+import PersonasPage from '@/pages/tables/people/PersonasPage';
 
 const ProtectedRoute = () => {
   const { isAuthenticated, loading } = useAuth();
@@ -38,7 +38,7 @@ function App() {
                 } />
                 <Route path="/companies" element={<CompaniesPage />} />
                 <Route path="/permissions" element={<PermissionsPage />} />
-                <Route path="/administration/personas" element={<PersonasPage />} />
+                <Route path="/tables/people" element={<PersonasPage />} />
               </Route>
             </Route>
 

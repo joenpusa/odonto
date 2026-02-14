@@ -42,3 +42,46 @@ export const getPeople = async (tenantId: string, search: string = '', page: num
         }
     };
 };
+
+export const createPerson = async (tenantId: string, data: Omit<Person, 'id' | 'tenant_id'>) => {
+    const query = `
+        INSERT INTO people (id, tenant_id, first_name, last_name, email, phone, document_type, document_number, address)
+        VALUES (UUID_TO_BIN(UUID()), UNHEX(?), ?, ?, ?, ?, ?, ?, ?)
+    `;
+    const params = [
+        tenantId,
+        data.first_name,
+        data.last_name,
+        data.email,
+        data.phone,
+        data.document_type,
+        data.document_number,
+        data.address
+    ];
+    await pool.query(query, params);
+};
+
+export const updatePerson = async (tenantId: string, id: string, data: Partial<Omit<Person, 'id' | 'tenant_id'>>) => {
+    const query = `
+        UPDATE people 
+        SET first_name = ?, last_name = ?, email = ?, phone = ?, document_type = ?, document_number = ?, address = ?
+        WHERE id = UNHEX(?) AND tenant_id = UNHEX(?)
+    `;
+    const params = [
+        data.first_name,
+        data.last_name,
+        data.email,
+        data.phone,
+        data.document_type,
+        data.document_number,
+        data.address,
+        id,
+        tenantId
+    ];
+    await pool.query(query, params);
+};
+
+export const deletePerson = async (tenantId: string, id: string) => {
+    const query = 'DELETE FROM people WHERE id = UNHEX(?) AND tenant_id = UNHEX(?)';
+    await pool.query(query, [id, tenantId]);
+};

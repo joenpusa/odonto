@@ -14,7 +14,8 @@
     "menu": {
         "dashboard": "Dashboard",
         "administration": "Administration",
-        "companies": "Companies"
+        "companies": "Companies",
+        "tables": "Tables"
     },
     "common": {
         "save": "Save",
@@ -27,7 +28,17 @@
         "yes": "Yes",
         "no": "No",
         "page_of": "Page {{page}} of {{total}}",
-        "required": "Required"
+        "required": "Required",
+        "numeric_only": "Numbers only",
+        "saving": "Saving...",
+        "select": "Select...",
+        "created_successfully": "Created successfully",
+        "updated_successfully": "Updated successfully",
+        "deleted_successfully": "Deleted successfully",
+        "confirm_delete": "Are you sure you want to delete this item?",
+        "error_deleting": "Error deleting item",
+        "error_saving": "Error saving item",
+        "invalid_email": "Invalid email"
     },
     "dashboard": {
         "title": "Dashboard",
@@ -72,6 +83,20 @@
         "active": "Active",
         "inactive": "Inactive",
         "actions": "Actions",
-        "no_results": "No people found."
+        "no_results": "No people found.",
+        "create_title": "Create Person",
+        "edit_title": "Edit Person",
+        "add_new": "Add New",
+        "first_name": "First Name",
+        "last_name": "Last Name",
+        "document_type": "Document Type",
+        "document_number": "Document Number",
+        "address": "Address",
+        "doc_types": {
+            "CC": "Citizenship Card",
+            "TI": "Identity Card",
+            "CE": "Alien Registration Card",
+            "PASSPORT": "Passport"
+        }
     }
 }

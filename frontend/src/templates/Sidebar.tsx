@@ -109,14 +109,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
                     >
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Table size={20} style={{ marginRight: '12px' }} />
-                            <span>Tablas</span>
+                            <span>{t('menu.tables')}</span>
                         </div>
                         {tablesOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
                     </button>
 
                     {tablesOpen && (
                         <div style={submenuStyle}>
-                            <NavLink to="/administration/personas" style={linkStyle}>
+                            <NavLink to="/tables/people" style={linkStyle}>
                                 <Users size={18} style={{ marginRight: '12px' }} />
                                 <span>{t('people.title')}</span>
                             </NavLink>

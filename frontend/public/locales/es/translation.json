@@ -14,7 +14,8 @@
     "menu": {
         "dashboard": "Inicio",
         "administration": "Administración",
-        "companies": "Empresas"
+        "companies": "Empresas",
+        "tables": "Tablas"
     },
     "common": {
         "save": "Guardar",
@@ -26,8 +27,17 @@
         "no_results": "No se encontraron resultados.",
         "yes": "Sí",
         "no": "No",
-        "page_of": "Página {{page}} de {{total}}",
-        "required": "Requerido"
+        "required": "Requerido",
+        "numeric_only": "Solo números permitidos",
+        "saving": "Guardando...",
+        "select": "Seleccionar...",
+        "created_successfully": "Creado exitosamente",
+        "updated_successfully": "Actualizado exitosamente",
+        "deleted_successfully": "Eliminado exitosamente",
+        "confirm_delete": "¿Está seguro de que desea eliminar este elemento?",
+        "error_deleting": "Error eliminando el elemento",
+        "error_saving": "Error guardando el elemento",
+        "invalid_email": "Correo electrónico inválido"
     },
     "dashboard": {
         "title": "Panel de Control",
@@ -72,6 +82,20 @@
         "active": "Activo",
         "inactive": "Inactivo",
         "actions": "Acciones",
-        "no_results": "No se encontraron personas."
+        "no_results": "No se encontraron personas.",
+        "create_title": "Crear Persona",
+        "edit_title": "Editar Persona",
+        "add_new": "Agregar Nueva",
+        "first_name": "Nombre",
+        "last_name": "Apellido",
+        "document_type": "Tipo de Documento",
+        "document_number": "Número de Documento",
+        "address": "Dirección",
+        "doc_types": {
+            "CC": "Cédula de Ciudadanía",
+            "TI": "Tarjeta de Identidad",
+            "CE": "Cédula de Extranjería",
+            "PASSPORT": "Pasaporte"
+        }
     }
 }
