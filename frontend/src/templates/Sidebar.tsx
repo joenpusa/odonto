@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { LayoutDashboard, Settings, Building2, ChevronDown, ChevronRight, Lock } from 'lucide-react';
+import { LayoutDashboard, Settings, Building2, ChevronDown, ChevronRight, Lock, Table, Users } from 'lucide-react';
 
 interface SidebarProps {
     isOpen: boolean;
@@ -11,6 +11,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
     const { t } = useTranslation();
     const [adminOpen, setAdminOpen] = useState(false);
+    const [tablesOpen, setTablesOpen] = useState(false);
 
     const sidebarStyle: React.CSSProperties = {
         width: '250px',
@@ -83,6 +84,41 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
                             <NavLink to="/permissions" style={linkStyle}>
                                 <Lock size={18} style={{ marginRight: '12px' }} />
                                 {t('permissions.title')}
+                            </NavLink>
+                        </div>
+                    )}
+                </div>
+
+                {/* Tablas Submenu (Top Level) */}
+                <div>
+                    <button
+                        onClick={() => setTablesOpen(!tablesOpen)}
+                        style={{
+                            width: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            padding: '12px 20px',
+                            background: 'none',
+                            border: 'none',
+                            cursor: 'pointer',
+                            color: '#374151',
+                            fontSize: '1rem',
+                            fontFamily: 'inherit'
+                        }}
+                    >
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <Table size={20} style={{ marginRight: '12px' }} />
+                            <span>Tablas</span>
+                        </div>
+                        {tablesOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+                    </button>
+
+                    {tablesOpen && (
+                        <div style={submenuStyle}>
+                            <NavLink to="/administration/personas" style={linkStyle}>
+                                <Users size={18} style={{ marginRight: '12px' }} />
+                                <span>{t('people.title')}</span>
                             </NavLink>
                         </div>
                     )}

@@ -60,5 +60,18 @@
         "404_title": "Page not found",
         "404_message": "Sorry, the page you are looking for does not exist or has been moved.",
         "back_home": "Back to Home"
+    },
+    "people": {
+        "title": "People",
+        "search_placeholder": "Search by Name or DNI",
+        "name": "Name",
+        "dni": "DNI",
+        "email": "Email",
+        "phone": "Phone",
+        "status": "Status",
+        "active": "Active",
+        "inactive": "Inactive",
+        "actions": "Actions",
+        "no_results": "No people found."
     }
 }

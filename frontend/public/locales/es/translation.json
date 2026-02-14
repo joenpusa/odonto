@@ -60,5 +60,18 @@
         "404_title": "Página no encontrada",
         "404_message": "Lo sentimos, la página que buscas no existe o ha sido movida.",
         "back_home": "Volver al inicio"
+    },
+    "people": {
+        "title": "Personas",
+        "search_placeholder": "Buscar por Nombre o DNI",
+        "name": "Nombre",
+        "dni": "DNI",
+        "email": "Correo",
+        "phone": "Teléfono",
+        "status": "Estado",
+        "active": "Activo",
+        "inactive": "Inactivo",
+        "actions": "Acciones",
+        "no_results": "No se encontraron personas."
     }
 }
